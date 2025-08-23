@@ -1,0 +1,50 @@
+[
+  {
+    "sensor_id": "air-co-001",
+    "harmful_substance": "CO",
+    "value": 0.75,
+    "unit": "ppm",
+    "timestamp": "2025-08-23T23:00:00Z",
+    "location": { "lat": 12.9716, "lon": 77.5946 }
+  },
+  {
+    "sensor_id": "air-co-002",
+    "harmful_substance": "CO",
+    "value": 0.88,
+    "unit": "ppm",
+    "timestamp": "2025-08-23T23:01:00Z",
+    "location": { "lat": 12.9720, "lon": 77.5950 }
+  },
+  {
+    "sensor_id": "air-no2-001",
+    "harmful_substance": "NO2",
+    "value": 0.12,
+    "unit": "ppm",
+    "timestamp": "2025-08-23T23:00:00Z",
+    "location": { "lat": 12.9705, "lon": 77.5935 }
+  },
+  {
+    "sensor_id": "air-no2-002",
+    "harmful_substance": "NO2",
+    "value": 0.18,
+    "unit": "ppm",
+    "timestamp": "2025-08-23T23:02:00Z",
+    "location": { "lat": 12.9710, "lon": 77.5940 }
+  },
+  {
+    "sensor_id": "air-o3-001",
+    "harmful_substance": "O3",
+    "value": 0.03,
+    "unit": "ppm",
+    "timestamp": "2025-08-23T23:00:00Z",
+    "location": { "lat": 12.9730, "lon": 77.5955 }
+  },
+  {
+    "sensor_id": "air-o3-002",
+    "harmful_substance": "O3",
+    "value": 0.05,
+    "unit": "ppm",
+    "timestamp": "2025-08-23T23:01:00Z",
+    "location": { "lat": 12.9735, "lon": 77.5960 }
+  }
+]
