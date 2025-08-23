@@ -1,0 +1,8 @@
+server:
+  port: 9090
+
+kafka:
+  bootstrap-servers: "localhost:9092"
+  sampletopic: "datatopic"
+  samplegroupId: "groupId"
+
