@@ -5,6 +5,7 @@ import com.example_Real_Time_Data_Streaming.kafka.KafkaProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ import java.io.IOException;
 public class ScheduledDataSupplyService {
     private final KafkaTemplate kafkaTemplate;
     private final KafkaProperties kafkaProperties;
+    @Value("${kafka.sampletopic}")
+    private String topicName;
 
  //Repeats after a sec everytime
     @Scheduled(fixedRate = 1000)
@@ -33,7 +36,7 @@ public class ScheduledDataSupplyService {
 
         //Sending to kafka topic mentioned inside kafkaProperties
 
-        kafkaTemplate.send(kafkaProperties.getTopicName(),dataList[0],dataList[1] );
+        kafkaTemplate.send(topicName,dataList[0],dataList[1] );
 
 
 

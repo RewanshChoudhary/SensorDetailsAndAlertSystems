@@ -12,7 +12,7 @@ import java.util.Random;
 public class SampleDataProvider {
     public String getSampleData() throws IOException {
         ObjectMapper mapper=new ObjectMapper();
-        JsonNode rootArray=mapper.readTree(new File("sample.json"));
+        JsonNode rootArray=mapper.readTree(new File("src/main/java/com/example_Real_Time_Data_Streaming/common/sample.json"));
         int size=rootArray.size();
         int ranInd=new Random().nextInt(size);
         JsonNode ranSample=rootArray.get(ranInd);
