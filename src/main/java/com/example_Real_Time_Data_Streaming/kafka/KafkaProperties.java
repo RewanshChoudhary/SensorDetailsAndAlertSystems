@@ -14,4 +14,5 @@ public class KafkaProperties {
     private String groupId;
 
 
+
 }
