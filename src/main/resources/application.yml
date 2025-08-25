@@ -6,3 +6,9 @@ kafka:
   sampletopic: "datatopic"
   samplegroupId: "groupId"
 
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: rootrewansh
+    driver-class-name: org.postgresql.Driver

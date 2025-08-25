@@ -18,12 +18,9 @@ stompClient.onConnect = () => {
         console.log('Received:', message.body);
     });
 
-    // Send a message to the backend
-    stompClient.publish({
-        destination: '/app/sendMessage',
-        body: JSON.stringify({ text: 'Hello from frontend!' }),
-    });
+
+
 };
 
-// Activate connection
+
 stompClient.activate();

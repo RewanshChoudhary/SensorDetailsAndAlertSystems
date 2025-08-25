@@ -38,6 +38,9 @@ public class ScheduledDataSupplyService {
 
         kafkaTemplate.send(topicName,dataList[0],dataList[1] );
 
+        //Send the data with extra data fields to The DB
+
+
 
 
     }
