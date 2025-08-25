@@ -2,14 +2,14 @@ import SockJS from 'sockjs-client';
 
 import { Client } from '@stomp/stompjs';
 
-// Create STOMP client
+
 const stompClient = new Client({
     webSocketFactory: () => new SockJS('http://localhost:9090/websocket'),
     debug: (str) => console.log(str),
     reconnectDelay: 5000,
 });
 
-// On connection
+
 stompClient.onConnect = () => {
     console.log('Connected to WebSocket');
 
