@@ -3,6 +3,7 @@ package com.example_Real_Time_Data_Streaming.model;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.locationtech.jts.geom.Point;
@@ -14,6 +15,8 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+
 
 @Table(name="sensor_data")
 
@@ -26,6 +29,7 @@ public class SensorDataModel {
 
     @Column(nullable = false)
     private String substanceName;
+
     private String sensorDescription;
     @Column(nullable = false)
     private double value;
