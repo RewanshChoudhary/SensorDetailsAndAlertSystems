@@ -11,4 +11,17 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: rootrewansh
-    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update   # Or create-drop for dev
+    properties:
+      hibernate:
+        dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect
+
+        format_sql: true
+        show_sql: true
+  logging:
+    level:
+      org.hibernate.SQL: DEBUG
+      org.hibernate.type.descriptor.sql: TRACE
+

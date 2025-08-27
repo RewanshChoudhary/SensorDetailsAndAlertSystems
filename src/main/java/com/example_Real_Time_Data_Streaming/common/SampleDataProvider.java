@@ -1,10 +1,9 @@
 package com.example_Real_Time_Data_Streaming.common;
 
-import com.example_Real_Time_Data_Streaming.repository.SensorDataRepository;
-import com.example_Real_Time_Data_Streaming.service.DataSendingAndSavingService;
+import com.example_Real_Time_Data_Streaming.service.DataSendingService;
+import com.example_Real_Time_Data_Streaming.service.DataStoringService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,9 +16,10 @@ import java.util.Random;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@NoArgsConstructor(force = true)
+
 public class SampleDataProvider {
-    private final DataSendingAndSavingService dataSendingAndSavingService;
+    private final DataStoringService dataStoringService;
+
 
 
 
@@ -40,7 +40,7 @@ public class SampleDataProvider {
 
         double val=Double.parseDouble(ranSample.get("value").asText());
         //Service method to save data called here
-        dataSendingAndSavingService.saveDataToDB(ranSample.get("sensor_id").asText(),ranSample.get("harmful_substance").asText(),val,ranSample.get("unit").asText(),lat,lon);
+       dataStoringService.saveDataToDB(ranSample.get("sensor_id").asText(),ranSample.get("harmful_substance").asText(),val,ranSample.get("unit").asText(),lat,lon);
 
 
 
