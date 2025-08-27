@@ -1,6 +1,5 @@
 package com.example_Real_Time_Data_Streaming.common;
 
-import com.example_Real_Time_Data_Streaming.service.DataSendingService;
 import com.example_Real_Time_Data_Streaming.service.DataStoringService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

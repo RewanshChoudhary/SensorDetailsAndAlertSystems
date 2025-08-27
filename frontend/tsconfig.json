@@ -1,4 +1,12 @@
-"compilerOptions": {
-"esModuleInterop": true,
-"allowSyntheticDefaultImports": true
-}
+{
+    "compilerOptions": {
+      "module": "ESNext",
+      "target": "ES6",
+      "outDir": "./dist",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "strict": true,
+      "lib": ["DOM", "ES6"]
+    }
+  }
+  

@@ -1,4 +1,4 @@
-package com.example_Real_Time_Data_Streaming.webscoket;
+package com.example_Real_Time_Data_Streaming.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

@@ -1,21 +1,17 @@
 package com.example_Real_Time_Data_Streaming.service;
 
 import com.example_Real_Time_Data_Streaming.common.SampleDataProvider;
-import com.example_Real_Time_Data_Streaming.model.SensorDataModel;
-import com.example_Real_Time_Data_Streaming.repository.SensorDataRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +19,7 @@ import java.time.LocalDateTime;
 public class DataSendingService {
     private final KafkaTemplate kafkaTemplate;
 
-    private final SensorDataRepository sensorDataRepository;
+
   private final SampleDataProvider sampleDataProvider;
 
     @Value("${kafka.sampletopic}")

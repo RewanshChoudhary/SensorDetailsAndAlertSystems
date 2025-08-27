@@ -27,7 +27,7 @@ public class KafkaMessageListener {
         String key=record.key();
         String value =record.value();
         System.out.println("Received message: "+key+": "+value);
-        simpMessagingTemplate.convertAndSend("/topic/sensor-data",value);
+        simpMessagingTemplate.convertAndSend("/topic/sensor-data",key+":"+value);
 
 
     }
