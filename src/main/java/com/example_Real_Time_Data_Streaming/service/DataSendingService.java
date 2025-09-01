@@ -40,7 +40,7 @@ public class DataSendingService {
 
         //Sending to kafka topic mentioned inside kafkaProperties
 
-        kafkaTemplate.send(topicName,dataList[0],dataList[1] );
+        kafkaTemplate.send(topicName,dataList[0],data);
 
 
 
