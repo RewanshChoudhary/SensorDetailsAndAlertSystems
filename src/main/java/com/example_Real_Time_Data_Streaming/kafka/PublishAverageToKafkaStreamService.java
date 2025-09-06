@@ -1,4 +1,4 @@
-package com.example_Real_Time_Data_Streaming.service;
+package com.example_Real_Time_Data_Streaming.kafka;
 import com.example_Real_Time_Data_Streaming.model.AvgCount;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
@@ -6,19 +6,27 @@ import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.*;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import org.springframework.kafka.annotation.EnableKafkaStreams;
 import org.springframework.kafka.support.serializer.JsonSerde;
-import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 
-@Service
+@Configuration
+@EnableKafkaStreams
 public class PublishAverageToKafkaStreamService {
-    public void publishToAnotherTopic(){
-        StreamsBuilder builder=new StreamsBuilder();
-        KStream<String,String> senDataStream=builder.stream("dataTopic");
+    @Value(value="${spring.kafka.sampletopic}")
+    private String topicname;
+     @Bean
+    public KStream<String,String > processStream(StreamsBuilder builder) {
+
+        KStream<String,String> sensorDataStream=builder.stream(topicname);
         Serde<AvgCount> avgSerde = new JsonSerde<>(AvgCount.class);
 
-        KGroupedStream<String,String> groupedBySensorId=senDataStream.groupByKey();
+        KGroupedStream<String,String> groupedBySensorId=sensorDataStream.groupByKey();
         TimeWindows tumblingWindow= TimeWindows.ofSizeWithNoGrace(Duration.ofSeconds(10));
         KTable<Windowed<String>, AvgCount> aggregated=groupedBySensorId
                 .windowedBy(tumblingWindow)
@@ -41,6 +49,7 @@ public class PublishAverageToKafkaStreamService {
                 .to("avg-val-of-each");
 
 
+        return sensorDataStream;
 
 
     }
