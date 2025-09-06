@@ -22,7 +22,7 @@ public class DataSendingService {
 
   private final SampleDataProvider sampleDataProvider;
 
-    @Value("${kafka.sampletopic}")
+    @Value("${spring.kafka.sampletopic}")
     private String topicName;
 
  //Repeats after a sec everytime

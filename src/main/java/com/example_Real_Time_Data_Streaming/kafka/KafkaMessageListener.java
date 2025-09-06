@@ -15,14 +15,14 @@ public class KafkaMessageListener {
     private final KafkaProperties kafkaProperties;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    @Value("${kafka.sampletopic}")
+    @Value("${spring.kafka.sampletopic}")
     private String topicname;
 
-    @Value("${kafka.samplegroupId}")
+    @Value("${spring.kafka.samplegroupId}")
     private String groupId ;
 
 
-    @KafkaListener(topics = "${kafka.sampletopic}", groupId = "${kafka.samplegroupId}")
+    @KafkaListener(topics = "${spring.kafka.sampletopic}", groupId = "${spring.kafka.samplegroupId}")
     public void receiveKafkaMessage(ConsumerRecord<String,String> record ) {
         String key=record.key();
         String value =record.value();

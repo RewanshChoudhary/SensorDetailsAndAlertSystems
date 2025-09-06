@@ -24,7 +24,7 @@ import static org.apache.kafka.streams.StreamsConfig.*;
 @Configuration
 public class KafkaStreamsConfig {
 
-    @Value(value = "${spring.kafka.bootstrap-server}")
+    @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
 
 

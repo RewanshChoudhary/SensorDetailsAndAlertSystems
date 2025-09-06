@@ -16,8 +16,6 @@ public class PublishAverageToKafkaStreamService {
     public void publishToAnotherTopic(){
         StreamsBuilder builder=new StreamsBuilder();
         KStream<String,String> senDataStream=builder.stream("dataTopic");
-
-
         Serde<AvgCount> avgSerde = new JsonSerde<>(AvgCount.class);
 
         KGroupedStream<String,String> groupedBySensorId=senDataStream.groupByKey();
