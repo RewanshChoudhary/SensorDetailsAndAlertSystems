@@ -1,7 +1,6 @@
 package com.example_Real_Time_Data_Streaming.model;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 
 @AllArgsConstructor

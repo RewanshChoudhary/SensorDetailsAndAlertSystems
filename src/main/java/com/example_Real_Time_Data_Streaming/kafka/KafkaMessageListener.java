@@ -31,5 +31,12 @@ public class KafkaMessageListener {
 
 
     }
+    @KafkaListener(topics="avg-val-of-each",groupId="groupid")
+    public void getAverageValue(ConsumerRecord<String,String> record){
+        String key=record.key();
+        String value =record.value();
+        System.out.println("Received message: "+key+": "+value);
+    }
+
 
 }
