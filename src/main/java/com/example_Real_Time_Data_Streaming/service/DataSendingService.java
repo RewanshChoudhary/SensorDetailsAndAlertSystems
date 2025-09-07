@@ -26,7 +26,7 @@ public class DataSendingService {
     private String topicName;
 
  //Repeats after a sec everytime
-    @Scheduled(initialDelay=5000,fixedRate = 1000)
+    @Scheduled(initialDelay=5000,fixedDelay = 10000)
 
     public void scheduledDataSupply() throws IOException {
         // Receives a chain of  data from this class

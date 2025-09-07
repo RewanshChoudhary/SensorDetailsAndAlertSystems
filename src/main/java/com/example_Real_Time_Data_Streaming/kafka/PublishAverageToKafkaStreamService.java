@@ -23,17 +23,21 @@ public class PublishAverageToKafkaStreamService {
      @Bean
     public KStream<String,String > processStream(StreamsBuilder builder) {
 
-        KStream<String,String> sensorDataStream=builder.stream(topicname);
+        KStream<String,String> sensorDataStream=builder.stream(topicname,
+                Consumed.with(Serdes.String(), Serdes.String()));
         Serde<AvgCount> avgSerde = new JsonSerde<>(AvgCount.class);
 
         KGroupedStream<String,String> groupedBySensorId=sensorDataStream.groupByKey();
-        TimeWindows tumblingWindow= TimeWindows.ofSizeWithNoGrace(Duration.ofSeconds(10));
+        TimeWindows tumblingWindow= TimeWindows.ofSizeWithNoGrace(Duration.ofSeconds(20));
         KTable<Windowed<String>, AvgCount> aggregated=groupedBySensorId
                 .windowedBy(tumblingWindow)
                 .aggregate(
                         () -> new AvgCount(0.0, 0L),
                         (key, value, agg) -> {
-                            double message = Double.parseDouble(value);
+                            String [] data=value.split(",");
+                            String reading=data[1];
+
+                            double message = Double.parseDouble(reading);
                             return agg.add(message); // Return updated object
                         },
                         Materialized.with(Serdes.String(), new JsonSerde<>(AvgCount.class))
