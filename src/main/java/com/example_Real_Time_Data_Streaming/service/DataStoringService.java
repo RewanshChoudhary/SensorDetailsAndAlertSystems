@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class DataStoringService {
+public class
+DataStoringService {
     private final SensorDataRepository sensorDataRepository;
 
     public void  saveDataToDB(String sensorId, String substanceName,  double value , String unit , double latitude, double longitude){

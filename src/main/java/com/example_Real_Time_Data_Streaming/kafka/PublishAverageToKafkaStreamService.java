@@ -5,32 +5,50 @@ import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.*;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import org.springframework.kafka.annotation.EnableKafkaStreams;
 import org.springframework.kafka.support.serializer.JsonSerde;
-
 import java.time.Duration;
+
 
 @Configuration
 @EnableKafkaStreams
 public class PublishAverageToKafkaStreamService {
     @Value(value="${spring.kafka.sampletopic}")
     private String topicname;
+    @Value(value="${kafka.topic.alerttopic}")
+    private String alerttopic;
+
+    @Value(value="${dummy.threshold}")
+    private Double threshold;
+
      @Bean
     public KStream<String,String > processStream(StreamsBuilder builder) {
-
+         // Forming the sensor stream
         KStream<String,String> sensorDataStream=builder.stream(topicname,
                 Consumed.with(Serdes.String(), Serdes.String()));
-        Serde<AvgCount> avgSerde = new JsonSerde<>(AvgCount.class);
+        sensorDataStream.filter(
+                (key,value)->{
+                    String [] data=value.split(",");
+                    var  reading=Double.parseDouble(data[0]);
+                    return reading>threshold;
 
+
+                }
+        )        // Sending to alert topic majorly for frontend  and remember to add serde as by default it is not added
+                .to(alerttopic,Produced.with(Serdes.String(), Serdes.String()));
+
+
+        Serde<AvgCount> avgSerde = new JsonSerde<>(AvgCount.class);
+        // groups by key
         KGroupedStream<String,String> groupedBySensorId=sensorDataStream.groupByKey();
+        //Creating tumbling window of duration  = ?
         TimeWindows tumblingWindow= TimeWindows.ofSizeWithNoGrace(Duration.ofSeconds(20));
         KTable<Windowed<String>, AvgCount> aggregated=groupedBySensorId
                 .windowedBy(tumblingWindow)
+                // Isolating different results
                 .aggregate(
                         () -> new AvgCount(0.0, 0L),
                         (key, value, agg) -> {
@@ -40,6 +58,8 @@ public class PublishAverageToKafkaStreamService {
                             double message = Double.parseDouble(reading);
                             return agg.add(message); // Return updated object
                         },
+
+                        //Deserialise and serialise according to the model class AVGCOUNT
                         Materialized.with(Serdes.String(), new JsonSerde<>(AvgCount.class))
                 );
 
