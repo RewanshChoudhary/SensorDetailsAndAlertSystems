@@ -1,6 +1,6 @@
 package com.example_Real_Time_Data_Streaming.kafka;
 import com.example_Real_Time_Data_Streaming.model.AvgCount;
-import org.apache.kafka.common.serialization.Serde;
+
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -16,13 +16,13 @@ import java.time.Duration;
 @Configuration
 @EnableKafkaStreams
 public class PublishAverageToKafkaStreamService {
-    @Value(value="${spring.kafka.sampletopic}")
+    @Value(value="${spring.kafka.avgstreamtopic}")
     private String topicname;
-    @Value(value="${kafka.topic.alerttopic}")
+   @Value(value="${kafka.topic.alerttopic}")
     private String alerttopic;
 
-    @Value(value="${dummy.threshold}")
-    private Double threshold;
+//    @Value(value="${dummy.threshold}")
+    private double threshold=90;
 
      @Bean
     public KStream<String,String > processStream(StreamsBuilder builder) {
@@ -33,16 +33,15 @@ public class PublishAverageToKafkaStreamService {
                 (key,value)->{
                     String [] data=value.split(",");
                     var  reading=Double.parseDouble(data[0]);
+
+
                     return reading>threshold;
-
-
                 }
         )        // Sending to alert topic majorly for frontend  and remember to add serde as by default it is not added
                 .to(alerttopic,Produced.with(Serdes.String(), Serdes.String()));
 
 
-        Serde<AvgCount> avgSerde = new JsonSerde<>(AvgCount.class);
-        // groups by key
+
         KGroupedStream<String,String> groupedBySensorId=sensorDataStream.groupByKey();
         //Creating tumbling window of duration  = ?
         TimeWindows tumblingWindow= TimeWindows.ofSizeWithNoGrace(Duration.ofSeconds(20));
