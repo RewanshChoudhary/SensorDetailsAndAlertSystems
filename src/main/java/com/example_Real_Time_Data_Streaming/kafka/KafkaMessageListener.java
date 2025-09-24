@@ -1,10 +1,12 @@
 package com.example_Real_Time_Data_Streaming.kafka;
 
+
+import com.example_Real_Time_Data_Streaming.service.SensorStatisticsService;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -13,17 +15,15 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class KafkaMessageListener {
-    private final KafkaProperties kafkaProperties;
+
+
+
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    @Value("${spring.kafka.sampletopic}")
-    private String topicname;
+    private final SensorStatisticsService sensorStatisticsService;
 
-    @Value("${spring.kafka.samplegroupId}")
-    private String groupId ;
 
-    @Value("${spring.kafka.topic.alerttopic}")
-    private String alertTopic;
+
 
 
 
@@ -31,6 +31,18 @@ public class KafkaMessageListener {
     public void receiveKafkaMessage(ConsumerRecord<String,String> record ) {
         String key=record.key();
         String value =record.value();
+        double sensorValue=Double.parseDouble(value);
+
+
+        // changes max and min value in the stats table
+        sensorStatisticsService.checkAndChangeMaxSensorValue(key,sensorValue);
+
+        sensorStatisticsService.checkAndChangeMinSensorValue(key,sensorValue);
+
+
+
+
+
         System.out.println("Received message: "+key+": "+value);
         simpMessagingTemplate.convertAndSend("/topic/sensor-data",key+":"+value);
 
