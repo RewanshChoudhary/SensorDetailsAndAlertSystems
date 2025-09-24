@@ -27,7 +27,7 @@ public class SensorDataModel_archive {
     @Column(nullable = false)
     private String substanceName;
 
-    private String sensorDescription;
+
     @Column(nullable = false)
     private double value;
     @Column(nullable = false)

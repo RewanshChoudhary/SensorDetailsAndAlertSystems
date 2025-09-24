@@ -18,7 +18,7 @@ import java.time.Duration;
 public class PublishAverageToKafkaStreamService {
     @Value(value="${spring.kafka.avgstreamtopic}")
     private String topicname;
-   @Value(value="${kafka.topic.alerttopic}")
+   @Value(value="${spring.kafka.topic.alerttopic}")
     private String alerttopic;
 
 //    @Value(value="${dummy.threshold}")

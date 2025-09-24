@@ -5,12 +5,13 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Entity
+
 // Prepares a stats table for the records
 public class SensorStatistics {
     @Id
@@ -18,7 +19,7 @@ public class SensorStatistics {
     private Long id;
 
     @Column(nullable = false)
-    private String sensorName;
+    private String sensorId;
 
     private double avgValue;
 
