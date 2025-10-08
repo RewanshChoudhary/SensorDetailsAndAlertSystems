@@ -1,6 +1,10 @@
 package com.example_Real_Time_Data_Streaming.kafka;
 import com.example_Real_Time_Data_Streaming.model.AvgCount;
 
+import com.example_Real_Time_Data_Streaming.model.SensorStatistics;
+import com.example_Real_Time_Data_Streaming.repository.SensorStatisticsRepository;
+import com.example_Real_Time_Data_Streaming.service.SensorStatisticsService;
+import lombok.RequiredArgsConstructor;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -15,7 +19,10 @@ import java.time.Duration;
 
 @Configuration
 @EnableKafkaStreams
+@RequiredArgsConstructor
 public class PublishAverageToKafkaStreamService {
+    private final SensorStatisticsRepository sensorStatisticsRepository;
+
     @Value(value="${spring.kafka.avgstreamtopic}")
     private String topicname;
    @Value(value="${spring.kafka.topic.alerttopic}")
@@ -66,10 +73,14 @@ public class PublishAverageToKafkaStreamService {
                 .map((windowKey,agg)->{
                     String sensorId=windowKey.key();
                     double avg=agg.getAverage();
+                    sensorStatisticsRepository.setDeviationFromThreshold(avg,sensorId);
+
                     return KeyValue.pair(sensorId,avg);
 
                 })
                 .to("avg-val-of-each");
+
+
 
 
         return sensorDataStream;

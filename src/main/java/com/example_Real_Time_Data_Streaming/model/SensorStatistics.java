@@ -26,8 +26,8 @@ public class SensorStatistics {
     private double maxValue;
 
     private double minValue;
-
-    private double thresholdGivenByUser;
+    // will be dealt when value will be entered through the frontend
+    private double thresholdGivenByAdmin;
 
     private double deviationFromThreshold;
 

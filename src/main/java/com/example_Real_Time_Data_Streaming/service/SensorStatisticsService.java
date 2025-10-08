@@ -20,7 +20,9 @@ public class SensorStatisticsService {
 
 
     public void checkAndChangeMaxSensorValue(String sensorId,double value){
-        if (value>sensorStatisticsRepository.getMaxValue(sensorId)){
+        Double maxVal=sensorStatisticsRepository.getMaxValue(sensorId);
+
+        if (maxVal==null || maxVal>value){
             sensorStatisticsRepository.setMaxValue(sensorId,value);
 
 
@@ -28,9 +30,16 @@ public class SensorStatisticsService {
     }
 
     public void checkAndChangeMinSensorValue(String sensorId,double value){
-        if (value<sensorStatisticsRepository.getMinValue(sensorId)){
-            sensorStatisticsRepository.setMinvalue(sensorId,value);
+        Double min=sensorStatisticsRepository.getMinValue(sensorId);
+
+        if (min==null || min<value){
+            sensorStatisticsRepository.setMinValue(sensorId,value);
         }
+    }
+
+    public void changeAvgValue(String sensorId,double value){
+        sensorStatisticsRepository.setAvgValue(sensorId,value);
+
     }
 
 }
