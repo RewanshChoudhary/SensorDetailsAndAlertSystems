@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface SensorStatisticsRepository extends JpaRepository<SensorStatistics, Long> {
 
+
+
     @Query("SELECT COUNT(s) FROM SensorDataModel s WHERE s.sensorId = :sensorId")
     long getCountPerSensor(@Param("sensorId") String sensorId);
 
@@ -22,11 +24,7 @@ public interface SensorStatisticsRepository extends JpaRepository<SensorStatisti
     """)
     void modifyMaxValue(@Param("sensorId") String sensorId, @Param("newMax") double newMax);
 
-    @Query("SELECT MAX(s.value) FROM SensorDataModel s WHERE s.sensorId = :sensorId")
-    Double getMaxValue(@Param("sensorId") String sensorId);
 
-    @Query("SELECT MIN(s.value) FROM SensorDataModel s WHERE s.sensorId = :sensorId")
-    Double getMinValue(@Param("sensorId") String sensorId);
 
     @Modifying
     @Transactional

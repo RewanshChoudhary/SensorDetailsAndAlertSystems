@@ -27,7 +27,7 @@ public class PublishAverageToKafkaStreamService {
     private String alerttopic;
 
 //    @Value(value="${dummy.threshold}")
-    private double threshold=90;
+    private double threshold=90;`
 
      @Bean
     public KStream<String,String > processStream(StreamsBuilder builder) {
