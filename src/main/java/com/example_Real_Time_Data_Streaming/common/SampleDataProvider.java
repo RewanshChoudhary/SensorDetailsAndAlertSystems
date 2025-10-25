@@ -1,6 +1,6 @@
 package com.example_Real_Time_Data_Streaming.common;
 
-import com.example_Real_Time_Data_Streaming.service.DataStoringService;
+import com.example_Real_Time_Data_Streaming.service.sensorDB.DataStoringService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +18,6 @@ import java.util.Random;
 
 public class SampleDataProvider {
     private final DataStoringService dataStoringService;
-
-
-
-
 
     public String getSampleData() throws IOException {
         ObjectMapper mapper=new ObjectMapper();

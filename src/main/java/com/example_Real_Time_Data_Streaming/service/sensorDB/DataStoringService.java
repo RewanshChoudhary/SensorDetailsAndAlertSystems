@@ -1,4 +1,4 @@
-package com.example_Real_Time_Data_Streaming.service;
+package com.example_Real_Time_Data_Streaming.service.sensorDB;
 
 import com.example_Real_Time_Data_Streaming.model.SensorDataModel;
 import com.example_Real_Time_Data_Streaming.repository.SensorDataRepository;

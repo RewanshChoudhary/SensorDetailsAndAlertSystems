@@ -15,7 +15,6 @@ public class DataRetentionScheduler {
 
     @Transactional
     @Scheduled(fixedRate=1000 *60*60*24*7)
-
     // Runs every 7 days and keeps the old records in sensor_data_archive table and cleans sensor_data table
     public void retentionPolicy(){
         String deleteQuery="delete from sensor_data where timestamp< now()-INTERVAL '7 days'";
@@ -42,7 +41,7 @@ public class DataRetentionScheduler {
             entityManager.createNativeQuery(query).executeUpdate();
 
         }
-        catch  (Exception e ){
+        catch (Exception e ){
             System.out.println("Error while running retention policy for archives");
             e.printStackTrace();
 

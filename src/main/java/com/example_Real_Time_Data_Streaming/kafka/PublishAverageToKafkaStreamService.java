@@ -1,9 +1,7 @@
 package com.example_Real_Time_Data_Streaming.kafka;
 import com.example_Real_Time_Data_Streaming.model.AvgCount;
 
-import com.example_Real_Time_Data_Streaming.model.SensorStatistics;
 import com.example_Real_Time_Data_Streaming.repository.SensorStatisticsRepository;
-import com.example_Real_Time_Data_Streaming.service.SensorStatisticsService;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
@@ -73,7 +71,7 @@ public class PublishAverageToKafkaStreamService {
                 .map((windowKey,agg)->{
                     String sensorId=windowKey.key();
                     double avg=agg.getAverage();
-                    sensorStatisticsRepository.setDeviationFromThreshold(avg,sensorId);
+                    sensorStatisticsRepository.modifyDeviationFromThreshold(avg,sensorId);
 
                     return KeyValue.pair(sensorId,avg);
 

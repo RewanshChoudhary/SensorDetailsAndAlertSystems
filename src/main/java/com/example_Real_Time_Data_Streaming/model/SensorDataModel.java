@@ -30,7 +30,6 @@ public class SensorDataModel {
     @Column(nullable = false)
     private String substanceName;
 
-
     @Column(nullable = false)
     private double value;
     @Column(nullable = false)

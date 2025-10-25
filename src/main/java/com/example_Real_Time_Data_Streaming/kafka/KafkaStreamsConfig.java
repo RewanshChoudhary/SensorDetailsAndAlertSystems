@@ -39,4 +39,5 @@ public class KafkaStreamsConfig {
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
         return new KafkaStreamsConfiguration(props);
-    }}
+    }
+}

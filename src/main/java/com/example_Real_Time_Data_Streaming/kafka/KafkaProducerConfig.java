@@ -14,20 +14,19 @@ import java.util.Map;
 @Configuration
 @RequiredArgsConstructor
 public class KafkaProducerConfig {
-    private final KafkaProperties kafkaProperties;
+  private final KafkaProperties kafkaProperties;
 
+  public ProducerFactory<String, Object> producerFactory() {
+    Map<String, Object> configs = new HashMap<>();
+    configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
+    configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+    configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+    return new DefaultKafkaProducerFactory<>(configs);
 
-    public ProducerFactory<String,Object> producerFactory(){
-        Map<String,Object> configs=new HashMap<>();
-        configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,kafkaProperties.getBootstrapServers());
-        configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        return new DefaultKafkaProducerFactory<>(configs);
+  }
 
-    }
+  public KafkaTemplate<String, Object> kafkaTemplate() {
+    return new KafkaTemplate<>(producerFactory());
 
-    public KafkaTemplate<String,Object> kafkaTemplate(){
-        return new KafkaTemplate<>(producerFactory());
-
-    }
+  }
 }
